@@ -1,17 +1,15 @@
-import os
 
 class Action:
 
-    def save_file(self,result):
+    def save_file(self, result):
+        """
+        Vercel uses a read-only filesystem, so we don't
+        write the itinerary to a local file.
 
-        os.makedirs("data",exist_ok=True)
+        The generated itinerary is returned to the Flask
+        frontend instead.
+        """
 
-        with open(
-            "data/itinerary.txt",
-            "w",
-            encoding="utf8"
-        ) as file:
+        print("\n✅ Itinerary generated successfully.")
 
-            file.write(result)
-
-        print("\nItinerary Saved Successfully.")
+        return result

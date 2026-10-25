@@ -4,10 +4,15 @@ from groq import Groq
 
 load_dotenv()
 
-client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+if not GROQ_API_KEY:
+    raise RuntimeError(
+        "GROQ_API_KEY environment variable is not configured."
+    )
+
+client = Groq(
+    api_key=GROQ_API_KEY
 )
 
-# Default Model
 MODEL_NAME = "openai/gpt-oss-120b"

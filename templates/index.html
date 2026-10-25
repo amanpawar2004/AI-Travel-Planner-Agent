@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Travel Planner</title>
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- Background decoration -->
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+    <main class="container">
+
+        <!-- =========================================
+             HERO
+        ========================================== -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✨ AI-Powered Travel Planning
+            </div>
+
+            <h1>
+                Plan Your
+                <span>Perfect Trip</span>
+            </h1>
+
+            <p>
+                Tell us where you want to go, how long you're staying,
+                and your budget. Our AI will create a personalized
+                itinerary for you.
+            </p>
+
+        </section>
+
+
+        <!-- =========================================
+             PLANNER CARD
+        ========================================== -->
+
+        <section class="planner-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="section-icon">
+                        ✈️
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Create Your Trip
+                        </h2>
+
+                        <p>
+                            Enter your travel preferences
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <form id="travelForm">
+
+                <!-- Destination -->
+
+                <div class="form-group full-width">
+
+                    <label for="city">
+                        📍 Destination
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        placeholder="e.g. Pune, Delhi, Goa, Manali"
+                        value="Pune"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Days -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="days">
+                            🗓️ Duration
+                        </label>
+
+                        <div class="input-with-suffix">
+
+                            <input
+                                type="number"
+                                id="days"
+                                name="days"
+                                min="1"
+                                max="30"
+                                value="3"
+                                required
+                            >
+
+                            <span>
+                                Days
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Budget -->
+
+                    <div class="form-group">
+
+                        <label for="budget">
+                            💰 Budget
+                        </label>
+
+                        <div class="input-with-prefix">
+
+                            <span>
+                                ₹
+                            </span>
+
+                            <input
+                                type="number"
+                                id="budget"
+                                name="budget"
+                                min="500"
+                                value="15000"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Generate Button -->
+
+                <button
+                    type="submit"
+                    id="generateBtn"
+                    class="generate-btn"
+                >
+
+                    <span id="buttonIcon">
+                        ✨
+                    </span>
+
+                    <span id="buttonText">
+                        Generate My Travel Plan
+                    </span>
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =========================================
+             LOADING
+        ========================================== -->
+
+        <section
+            id="loadingSection"
+            class="loading-card hidden"
+        >
+
+            <div class="loader"></div>
+
+            <h3>
+                Creating your perfect itinerary...
+            </h3>
+
+            <p>
+                Our AI is planning destinations, activities,
+                food and budget recommendations.
+            </p>
+
+            <div class="loading-steps">
+
+                <span>
+                    ✓ Understanding preferences
+                </span>
+
+                <span>
+                    ✓ Planning activities
+                </span>
+
+                <span>
+                    ✨ Generating itinerary
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             RESULT
+        ========================================== -->
+
+        <section
+            id="resultSection"
+            class="result-card hidden"
+        >
+
+            <div class="result-header">
+
+                <div>
+
+                    <div class="result-title-row">
+
+                        <span class="result-icon">
+                            🗺️
+                        </span>
+
+                        <div>
+
+                            <h2>
+                                Your Personalized Itinerary
+                            </h2>
+
+                            <p>
+                                Created based on your destination,
+                                duration and budget.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="regenerateBtn"
+                    class="regenerate-btn"
+                    type="button"
+                >
+
+                    🔄 Regenerate
+
+                </button>
+
+            </div>
+
+
+            <div class="result-divider"></div>
+
+
+            <!-- AI content -->
+
+            <article
+                id="resultContent"
+                class="result-content"
+            ></article>
+
+
+        </section>
+
+
+        <!-- =========================================
+             ERROR
+        ========================================== -->
+
+        <section
+            id="errorSection"
+            class="error-card hidden"
+        >
+
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+            <div>
+
+                <h3>
+                    Unable to generate itinerary
+                </h3>
+
+                <p id="errorMessage">
+                    Something went wrong.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             FOOTER
+        ========================================== -->
+
+        <footer>
+
+            <div class="footer-logo">
+                ✈️ AI Travel Planner
+            </div>
+
+            <p>
+                Built with Python, Flask & AI
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- Markdown parser -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+
+    <!-- Application JavaScript -->
+
+    <script
+        src="{{ url_for('static', filename='script.js') }}"
+    ></script>
+
+</body>
+
+</html>

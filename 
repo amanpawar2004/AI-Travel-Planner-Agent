@@ -1,0 +1,30 @@
+Initial commit - AI Travel Planner Agent
+
+# Conflicts:
+#	README.md
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto 9b802db
+# Last command done (1 command done):
+#    pick 16724b0 Initial commit - AI Travel Planner Agent
+# No commands remaining.
+# You are currently rebasing branch 'main' on '9b802db'.
+#
+# Changes to be committed:
+#	new file:   .gitignore
+#	modified:   README.md
+#	new file:   actions.py
+#	new file:   agent.py
+#	new file:   app.py
+#	new file:   config.py
+#	new file:   data/itinerary.txt
+#	new file:   main.py
+#	new file:   memory.py
+#	new file:   planner.py
+#	new file:   requirements.txt
+#	new file:   static/script.js
+#	new file:   static/style.css
+#	new file:   templates/index.html
+
